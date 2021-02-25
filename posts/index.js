@@ -1,10 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { randomBytes } = require("crypto");
+const axios = require("axios");
 
 // STORAGE
 /* POSTS = 4000
-COMMENTS = 4001 */
+COMMENTS = 4001
+Query = 4002
+EVENT_BUS = 4005*/
 
 // CORS
 const cors = require("cors");
@@ -26,9 +29,8 @@ app.get("/posts", (req, res) => {
 });
 
 // POST POST
-app.post("/posts", (req, res) => {
+app.post("/posts", async (req, res) => {
   const id = randomBytes(4).toString("hex");
-  // EX: 4151
   const { title } = req.body;
 
   posts[id] = {
@@ -36,10 +38,24 @@ app.post("/posts", (req, res) => {
     title,
   };
 
+  // Event-Bus Service
+  await axios.post("http://localhost:4005/events", {
+    type: "PostCreated",
+    data: {
+      id,
+      title,
+    },
+  });
+
   res.status(201).send(posts[id]);
+});
+
+app.post("/events", (req, res) => {
+  console.log("Received Event", req.body.type);
+  res.send({});
 });
 
 // PORT LISTENER
 app.listen(PORT, () => {
-  console.log(`Active on ${PORT}`);
+  console.log(`Post on ${PORT}`);
 });

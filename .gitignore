@@ -8,7 +8,11 @@ __pycache__/
 
 .DS_Store
 
-
+comments/node_modules
+posts/node_modules
+query/node_modules
+client/node_modules
+event-bus/node_modules
 # Distribution / packaging
 .Python
 build/

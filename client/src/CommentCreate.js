@@ -7,11 +7,15 @@ export default ({ postId }) => {
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    await axios.post(`http://localhost:4001/posts/${postId}/comments`, {
-      content,
-    });
-
-    setContent("");
+    // Async - Await avoid CORS error with module CORS installed
+    try {
+      await axios.post(`http://localhost:4001/posts/${postId}/comments`, {
+        content,
+      });
+      setContent("");
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

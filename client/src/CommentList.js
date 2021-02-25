@@ -5,11 +5,15 @@ export default ({ postId }) => {
   const [comments, setComments] = useState([]);
 
   const fetchData = async () => {
-    const res = await axios.get(
-      `http://localhost:4001/posts/${postId}/comments`
-    );
-
-    setComments(res.data);
+    // Async - Await avoid CORS error with module CORS installed
+    try {
+      const res = await axios.get(
+        `http://localhost:4001/posts/${postId}/comments`
+      );
+      setComments(res.data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {

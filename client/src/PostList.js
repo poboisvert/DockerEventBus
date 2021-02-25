@@ -7,11 +7,15 @@ export default function PostList() {
   const [posts, setPosts] = useState({});
 
   const fetchPosts = async () => {
-    // Fetch data GET
-    const res = await axios.get("http://localhost:4000/posts");
-
-    //Store data
-    setPosts(res.data);
+    // Async - Await avoid CORS error with module CORS installed
+    try {
+      // Fetch data GET
+      const res = await axios.get("http://localhost:4000/posts");
+      //Store data
+      setPosts(res.data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
