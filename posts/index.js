@@ -1,16 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { randomBytes } = require("crypto");
-const axios = require("axios");
-
-// STORAGE
-/* POSTS = 4000
-COMMENTS = 4001
-Query = 4002
-EVENT_BUS = 4005*/
-
-// CORS
 const cors = require("cors");
+const axios = require("axios");
 
 // ROUTES Express
 const app = express();
@@ -19,11 +11,21 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const posts = {};
-const PORT = 4000;
+// STORAGE
+/* 
+CORS Require if communication with Front End
+POSTS = 4000
+COMMENTS = 4001
+Query = 4002
+Moderation = 4003
+EVENT_BUS = 4005
+*/
 
-// ROUTES BROWSE
-// GET POST
+//PORT & Storage
+const PORT = 4000;
+const posts = {};
+
+// AXIOS
 app.get("/posts", (req, res) => {
   res.send(posts);
 });
@@ -38,7 +40,6 @@ app.post("/posts", async (req, res) => {
     title,
   };
 
-  // Event-Bus Service
   await axios.post("http://localhost:4005/events", {
     type: "PostCreated",
     data: {
@@ -50,12 +51,14 @@ app.post("/posts", async (req, res) => {
   res.status(201).send(posts[id]);
 });
 
+// POST events
 app.post("/events", (req, res) => {
   console.log("Received Event", req.body.type);
+
   res.send({});
 });
 
-// PORT LISTENER
+// PORT
 app.listen(PORT, () => {
-  console.log(`Post on ${PORT}`);
+  console.log(`Posts on PORT ${PORT}`);
 });

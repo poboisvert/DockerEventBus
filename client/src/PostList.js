@@ -10,7 +10,7 @@ export default function PostList() {
     // Async - Await avoid CORS error with module CORS installed
     try {
       // Fetch data GET
-      const res = await axios.get("http://localhost:4000/posts");
+      const res = await axios.get("http://localhost:4002/posts");
       //Store data
       setPosts(res.data);
     } catch (e) {
@@ -27,7 +27,7 @@ export default function PostList() {
       <div key={post.id} className="card">
         <div className="card-body">
           <h3>{post.title}</h3>
-          <CommentList postId={post.id} />
+          <CommentList comments={post.comments} />
           <CommentCreate postId={post.id} />
         </div>
       </div>
