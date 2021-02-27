@@ -1,0 +1,8 @@
+apiVersion: v1 # Default V1 to create
+kind: Pod # Object to create
+metadata: # Config for the new object
+  name: posts # Pod will have the name
+spec: # Attributes to apply to the object
+  containers:
+    - name: posts # the container will have the same name of the image
+      image: pob944/posts:0.0.1 # The docker image we want to use

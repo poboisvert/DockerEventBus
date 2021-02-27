@@ -60,5 +60,6 @@ app.post("/events", (req, res) => {
 
 // PORT
 app.listen(PORT, () => {
+  console.log("V105");
   console.log(`Posts on PORT ${PORT}`);
 });
