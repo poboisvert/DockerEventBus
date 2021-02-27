@@ -64,6 +64,52 @@ Example: kubectl describe pod posts
 
 > kubectl get deployments
 
+## Modification in a service
+
+Step 1: Build Docker Image (For rebuild after modification - must do)
+
+> docker build -t pob944/event-bus .
+
+Step 2: Push the image to Docker Bus (For rebuild after modification - must do - Stop after)
+
+> docker push pob944/event-bus
+
+Step 3: roll out
+
+> kubectl rollout restart deployment <deployment_name> (eg: posts-depl)
+
+> kubectl logs <deployment_name>/
+
+### Add a Service
+
+Step 1: Build Docker Image
+
+> docker build -t pob944/event-bus .
+
+Step 2: Push the image to Docker Bus
+
+> docker push pob944/event-bus
+
+Step 3: Deploy the service (Event-bus)
+
+> In: cd infrastructures/k8s -> Create a "serviceName-depl.yaml"
+
+> kubectl apply -f event-bus-depl.yaml
+> Result new pod: deployment.apps/event-bus-depl created
+> kubectl get pods
+
+Step 4: Setup the cluster IP between POST and Event-Bus
+
+> Create/Edit k8s
+> kubectl apply -f event-bus-depy.yaml
+
+Step 5: confirmation service
+
+> k get service
+> Result: CluterIP service
+
+Step 6: Enable communication
+
 ### Add/delete additional pods
 
 Folder for installation: infrastructures / k8s
