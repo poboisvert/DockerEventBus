@@ -1,6 +1,10 @@
-# Docker Microservice - Post, Comment, Moderation & Event-Bus/Query
+# Production viable Microservice - Express, Node and deploy using docker, k8s and Skaffold.
 
-[Docker/REACT] This project is a Microservice based on REACT and Docker.
+## Skaffold
+
+This service is a manager for k8s in order to produce updated services without doing them manually.
+
+> skaffold dev
 
 ## Dockers
 
