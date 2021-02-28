@@ -76,9 +76,13 @@ Step 2: Push the image to Docker Bus (For rebuild after modification - must do -
 
 Step 3: roll out
 
+> k get deployments
+
 > kubectl rollout restart deployment <deployment_name> (eg: posts-depl)
 
 > kubectl logs <deployment_name>/
+
+> k get pods (see time online)
 
 ### Add a Service
 
@@ -102,9 +106,11 @@ Step 4: Setup the cluster IP between POST and Event-Bus
 
 > Create/Edit k8s
 > kubectl apply -f event-bus-depy.yaml
+> OTHERS: kubectl apply -f . (for all files)
 
 Step 5: confirmation service
 
+> k get pods
 > k get service
 > Result: CluterIP service
 

@@ -10,7 +10,7 @@ export default function PostList() {
     // Async - Await avoid CORS error with module CORS installed
     try {
       // Fetch data GET
-      const res = await axios.get("http://localhost:4002/posts");
+      const res = await axios.get("http://posts.com:4002/posts");
       //Store data
       setPosts(res.data);
     } catch (e) {

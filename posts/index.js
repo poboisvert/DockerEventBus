@@ -11,7 +11,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// STORAGE
 /* 
 CORS Require if communication with Front End
 POSTS = 4000
@@ -31,7 +30,8 @@ app.get("/posts", (req, res) => {
 });
 
 // POST POST
-app.post("/posts", async (req, res) => {
+// Received from REACT Front END
+app.post("/posts/create", async (req, res) => {
   const id = randomBytes(4).toString("hex");
   const { title } = req.body;
 
@@ -40,6 +40,7 @@ app.post("/posts", async (req, res) => {
     title,
   };
 
+  // Received from event-bus
   await axios.post("http://event-bus-srv:4005/events", {
     type: "PostCreated",
     data: {

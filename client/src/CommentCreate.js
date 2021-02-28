@@ -9,7 +9,7 @@ export default ({ postId }) => {
 
     // Async - Await avoid CORS error with module CORS installed
     try {
-      await axios.post(`http://localhost:4001/posts/${postId}/comments`, {
+      await axios.post(`http://posts.com:4001/posts/${postId}/comments`, {
         content,
       });
       setContent("");

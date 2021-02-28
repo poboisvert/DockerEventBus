@@ -9,7 +9,7 @@ export default function PostCreate() {
 
     // Async - Await avoid CORS error with module CORS installed
     try {
-      await axios.post("http://localhost:4000/posts", {
+      await axios.post("http://posts.com:4000/posts/create", {
         title,
       });
     } catch (e) {

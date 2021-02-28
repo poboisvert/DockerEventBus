@@ -43,9 +43,11 @@ app.get("/posts", (req, res) => {
   res.send(posts);
 });
 
+// POST FROM EVENT-BUS
 app.post("/events", (req, res) => {
   const { type, data } = req.body;
 
+  // Analyzing the event type
   handleEvent(type, data);
 
   //console.log(posts);
@@ -55,11 +57,12 @@ app.post("/events", (req, res) => {
 
 app.listen(PORT, async () => {
   console.log(`Query on PORT ${PORT}`);
-
-  const res = await axios.get("http://localhost:4005/events");
+  // IF DOWN, it will fetch the lost data
+  const res = await axios.get("http://event-bus-serv:4005/events");
 
   for (let event of res.data) {
     console.log("Analyzing event", event.type);
+
     handleEvent(event.type, event.data);
   }
 });
