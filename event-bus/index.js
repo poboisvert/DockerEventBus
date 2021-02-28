@@ -24,18 +24,21 @@ EVENT_BUS = 4005
 //PORT
 const PORT = 4005;
 
+// POST is POSTING TO EVENT-BUS
 app.post("/events", (req, res) => {
   const event = req.body;
 
   events.push(event);
 
-  // ASSUME ALL POST WORK - SEND TO ALL SERVICE - DUPLICATION - NODE 15 FIX
+  // ASSUME ALL POST WORK - SEND TO ALL SERVICE - DUPLICATION - NODE 15 FIX - DOCKER Image 14 (TO CONFIRM)
   axios.post("http://posts-clusterip-srv:4000/events", event).catch((err) => {
     console.log(err.message);
   });
   axios.post("http://comments-srv:4001/events", event).catch((err) => {
     console.log(err.message);
   });
+
+  // Query Listenning to Event-Bus in case of shutdown
   axios.post("http://query-srv:4002/events", event).catch((err) => {
     console.log(err.message);
   });
@@ -45,6 +48,7 @@ app.post("/events", (req, res) => {
   res.send({ status: "OK" });
 });
 
+// No Action
 app.get("/events", (req, res) => {
   res.send(events);
 });

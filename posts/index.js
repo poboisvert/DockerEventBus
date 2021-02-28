@@ -31,16 +31,18 @@ app.get("/posts", (req, res) => {
 
 // POST POST
 // Received from REACT Front END
+// NGINX ROUTER
 app.post("/posts/create", async (req, res) => {
-  const id = randomBytes(4).toString("hex");
-  const { title } = req.body;
-
+  const id = randomBytes(4).toString("hex"); // GENERATE Random ID
+  const { title } = req.body; // ES6
+  // Storage content
   posts[id] = {
     id,
     title,
   };
 
-  // Received from event-bus
+  // FROM REACT
+  // TO Event-BUS
   await axios.post("http://event-bus-srv:4005/events", {
     type: "PostCreated",
     data: {
@@ -49,10 +51,13 @@ app.post("/posts/create", async (req, res) => {
     },
   });
 
+  // SET 201 Status; 202 could be interesting
   res.status(201).send(posts[id]);
 });
 
 // POST events
+// No action DONE FROM
+// POST Event-Bus
 app.post("/events", (req, res) => {
   console.log("Received Event", req.body.type);
   res.send({});

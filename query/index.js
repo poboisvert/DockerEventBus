@@ -12,6 +12,8 @@ const posts = {};
 //PORT
 const PORT = 4002;
 
+// Event filter by type
+// Refer to POST or Comment Service
 const handleEvent = (type, data) => {
   if (type === "PostCreated") {
     const { id, title } = data;
@@ -57,7 +59,7 @@ app.post("/events", (req, res) => {
 
 app.listen(PORT, async () => {
   console.log(`Query on PORT ${PORT}`);
-  // IF DOWN, it will fetch the lost data
+  // IF DOWN, it will fetch the lost data - Shudown
   const res = await axios.get("http://event-bus-serv:4005/events");
 
   for (let event of res.data) {

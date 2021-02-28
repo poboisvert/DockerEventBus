@@ -9,6 +9,8 @@ export default function PostCreate() {
 
     // Async - Await avoid CORS error with module CORS installed
     try {
+      // INGRESS-NGINX ROUTER to "Ingress-srv" to posts-clusterip-srv
+      // (POST service)
       await axios.post("http://posts.com:4000/posts/create", {
         title,
       });
