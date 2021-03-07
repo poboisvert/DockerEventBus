@@ -1,4 +1,4 @@
-# Production viable Microservice -
+# Production viable Microservice
 
 Express, Node and deploy using docker, k8s and Skaffold without using a cloud service.
 
@@ -14,19 +14,17 @@ This service is a manager for k8s in order to produce updated services without d
 
 > docker images
 
-> docker run -it <user>/posts sh # to have a terminal
+> docker run -it username/posts sh # to have a terminal
 
 ---
 
 > docker ps
 
-> docker logs <id from docker ps>
+> docker logs "id from docker ps"
 
-> docker build -t <user>/<service name folder> .
+> docker build -t username/service_name .
 
-> docker build -t <user>/<service_name>:<version> .
-
-> docker run <id from docker ps>
+> docker run "id from docker ps"
 
 Example for each service in this example
 docker build -t pob/posts:0.0.1 .
@@ -39,7 +37,7 @@ Folder for installation: infrastructures / k8s
 
 > Validation: kubectl get pods
 
-> kubectl logs <id_pod>
+> kubectl logs "id_pod"
 
 Example: kubectl logs posts
 
@@ -52,19 +50,19 @@ Example: kubectl logs posts
 Posts on PORT 4000
 ```
 
-> kubectl exec -it pod <pod_name> <CMD>
+> kubectl exec -it pod "pod_name" "CMD"
 
 Example: kubectl exec -it posts sh
 
-> kubectl delete pod <pod_name>
+> kubectl delete pod "pod_name"
 
 Example: kubectl delete pod posts
 
-> kubectl apply -f <pod_name> # Process a config file
+> kubectl apply -f "pod_name" # Process a config file
 
 Example: kubectl apply -f posts.yaml
 
-> kubectl describe pod <pod_name>
+> kubectl describe pod "pod_name"
 
 Example: kubectl describe pod posts
 
@@ -84,9 +82,9 @@ Step 3: roll out
 
 > k get deployments
 
-> kubectl rollout restart deployment <deployment_name> (eg: posts-depl)
+> kubectl rollout restart deployment "depl_name" (eg: posts-depl)
 
-> kubectl logs <deployment_name>/
+> kubectl logs "depl_name"/
 
 > k get pods (see time online)
 
@@ -139,14 +137,14 @@ This example is for the posts service
 
 > cd posts
 > Edit "index.js" and add a console.log("V105")
-> Run: docker build -t <username>/posts .
-> Run: docker push <username>/posts
+> Run: docker build -t "username"/posts .
+> Run: docker push "username"/posts
 
 #### Kubernetes
 
 > k get deployments
-> kubectl rollout restart deployment <deployment_name>/posts-depl
-> kubectl logs <deployment_name>/
+> kubectl rollout restart deployment "depl_name"/posts-depl
+> kubectl logs "depl_name"/
 
 ### Activate "k get pods"
 
